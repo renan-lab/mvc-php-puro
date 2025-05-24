@@ -29,17 +29,14 @@ class CategoriaController
 
     public static function listar() : void
     {
-        $categoria = new Categoria();
-        $categorias = $categoria->getAll();
+        $categorias = new Categoria()->getAll();
 
         include VIEWS . "/Categoria/lista_categoria.php";
     }
 
     public static function delete() : void
     {
-        $categoria = new Categoria();
-
-        $categoria->delete((int) $_GET['id']);
+        new Categoria()->delete((int) $_GET['id']);
 
         header('Location: /categoria');
     }

@@ -30,17 +30,14 @@ class AutorController
 
     public static function listar() : void
     {
-        $autor = new Autor();
-        $autores = $autor->getAll();
+        $autores = new Autor()->getAll();
 
         include VIEWS . "/Autor/lista_autor.php";
     }
 
     public static function delete() : void
     {
-        $autor = new Autor();
-        
-        $autor->delete((int) $_GET['id']);
+        new Autor()->delete((int) $_GET['id']);
 
         header('Location: /autor');
     }

@@ -30,17 +30,14 @@ class AlunoController
 
     public static function listar() : void
     {
-        $aluno = new Aluno();
-        $alunos = $aluno->getAll();
+        $alunos = new Aluno()->getAll();
         
         include VIEWS . "/Aluno/lista_aluno.php";
     }
 
     public static function delete() : void
     {
-        $aluno = new Aluno();
-
-        $aluno->delete((int) $_GET['id']);
+        new Aluno()->delete((int) $_GET['id']);
 
         header('Location: /aluno');
     }
