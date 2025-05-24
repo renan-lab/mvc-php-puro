@@ -2,6 +2,7 @@
 
 use App\Controller\{
     AlunoController,
+    AutorController,
     CategoriaController,
     InicialController
 };
@@ -29,6 +30,15 @@ switch ($url) {
         break;
     case '/categoria/delete':
         CategoriaController::delete();
+        break;
+    case '/autor':
+        AutorController::listar();
+        break;
+    case '/autor/cadastro':
+        AutorController::cadastro();
+        break;
+    case '/autor/delete':
+        AutorController::delete();
         break;
     default:
         # code...
