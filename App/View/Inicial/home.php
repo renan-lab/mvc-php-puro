@@ -11,6 +11,7 @@
 <body>
     <div>
         <?php include VIEWS . "/Includes/menu.php"; ?>
+        
         <h1>Tela Inicial</h1>
     </div>
 
