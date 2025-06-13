@@ -13,20 +13,22 @@
         <?php include VIEWS . "/Includes/menu.php"; ?>
         <h1>Cadastro de Aluno</h1>
 
+        <?= $model->getErrors(); ?>
+
         <form method="post" action="/aluno/cadastro" class="p-5">
-            <input type="hidden" name="id" value="<?= $aluno->id ?? null ?>">
+            <input type="hidden" name="id" value="<?= $model->id ?? null ?>">
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
-                <input type="text" class="form-control" value="<?= $aluno->nome ?? null ?>" id="nome" name="nome">
+                <input type="text" class="form-control" value="<?= $model->nome ?? null ?>" id="nome" name="nome">
             </div>
             <div class="mb-3">
                 <label for="ra" class="form-label">RA:</label>
-                <input type="text" class="form-control" value="<?= $aluno->ra ?? null ?>" id="ra" name="ra">
+                <input type="text" class="form-control" value="<?= $model->ra ?? null ?>" id="ra" name="ra">
             </div>
             <div class="mb-3">
                 <label for="curso" class="form-label">Curso:</label>
-                <input type="text" class="form-control" value="<?= $aluno->curso ?? null ?>" id="curso" name="curso">
+                <input type="text" class="form-control" value="<?= $model->curso ?? null ?>" id="curso" name="curso">
             </div>
             
             <button type="submit" class="btn btn-success">Salvar</button>

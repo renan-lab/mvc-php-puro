@@ -16,6 +16,8 @@
 
         <a href="/aluno/cadastro">Novo Aluno</a>
 
+        <?= $model->getErrors(); ?>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -25,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($alunos as $aluno): ?>
+                <?php foreach ($model->rows as $aluno): ?>
                 <tr>
                     <th scope="row"> <?= $aluno->id ?> </th>
                     <td> <a href="/aluno/cadastro?id=<?= $aluno->id ?>"><?= $aluno->nome ?></a> </td>
