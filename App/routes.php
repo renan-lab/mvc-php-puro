@@ -24,7 +24,7 @@ switch ($url) {
         break;
     case '/aluno':
         AuthController::isAuthenticated();
-        AlunoController::listar();
+        AlunoController::index();
         break;
     case '/aluno/cadastro':
         AuthController::isAuthenticated();

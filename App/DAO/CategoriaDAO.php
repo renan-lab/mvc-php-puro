@@ -21,7 +21,7 @@ class CategoriaDAO extends DAO
         $sql = "INSERT INTO categoria (descricao) VALUES (:descricao)";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':descricao', $model->descricao, parent::PARAM_STR);
+        $stmt->bindValue(':descricao', $model->descricao, parent::PARAM_STR);
         $stmt->execute();
 
         $model->id = parent::$conexao->lastInsertId();
@@ -34,8 +34,8 @@ class CategoriaDAO extends DAO
         $sql = "UPDATE categoria SET descricao = :descricao WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':descricao', $model->descricao, parent::PARAM_STR);
-        $stmt->bindParam(':id', $model->id, parent::PARAM_INT);
+        $stmt->bindValue(':descricao', $model->descricao, parent::PARAM_STR);
+        $stmt->bindValue(':id', $model->id, parent::PARAM_INT);
         $stmt->execute();
 
         return $model;
@@ -46,7 +46,7 @@ class CategoriaDAO extends DAO
         $sql = "SELECT * FROM categoria WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchObject('App\Model\Categoria');
@@ -67,7 +67,7 @@ class CategoriaDAO extends DAO
         $sql = "DELETE FROM categoria WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
 
         return $stmt->execute();
     }

@@ -21,9 +21,9 @@ class AutorDAO extends DAO
         $sql = "INSERT INTO autor (nome, data_nascimento, cpf) VALUES (:nome, :data_nascimento, :cpf)";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':nome', $model->nome, parent::PARAM_STR);
-        $stmt->bindParam(':data_nascimento', $model->data_nascimento, parent::PARAM_STR);
-        $stmt->bindParam(':cpf', $model->cpf, parent::PARAM_STR);
+        $stmt->bindValue(':nome', $model->nome, parent::PARAM_STR);
+        $stmt->bindValue(':data_nascimento', $model->data_nascimento, parent::PARAM_STR);
+        $stmt->bindValue(':cpf', $model->cpf, parent::PARAM_STR);
         $stmt->execute();
 
         $model->id = parent::$conexao->lastInsertId();
@@ -36,10 +36,10 @@ class AutorDAO extends DAO
         $sql = "UPDATE autor SET nome = :nome, data_nascimento = :data_nascimento, cpf = :cpf WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':nome', $model->nome, parent::PARAM_STR);
-        $stmt->bindParam(':data_nascimento', $model->data_nascimento, parent::PARAM_STR);
-        $stmt->bindParam(':cpf', $model->cpf, parent::PARAM_STR);
-        $stmt->bindParam(':id', $model->id, parent::PARAM_INT);
+        $stmt->bindValue(':nome', $model->nome, parent::PARAM_STR);
+        $stmt->bindValue(':data_nascimento', $model->data_nascimento, parent::PARAM_STR);
+        $stmt->bindValue(':cpf', $model->cpf, parent::PARAM_STR);
+        $stmt->bindValue(':id', $model->id, parent::PARAM_INT);
         $stmt->execute();
 
         return $model;
@@ -50,7 +50,7 @@ class AutorDAO extends DAO
         $sql = "SELECT * FROM autor WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchObject('App\Model\Autor');
@@ -71,7 +71,7 @@ class AutorDAO extends DAO
         $sql = "DELETE FROM autor WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
         
         return $stmt->execute();
     }

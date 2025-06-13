@@ -21,9 +21,9 @@ class AlunoDAO extends DAO
         $sql = "INSERT INTO aluno (nome, ra, curso) VALUES (:nome, :ra, :curso)";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':nome', $model->nome, parent::PARAM_STR);
-        $stmt->bindParam(':ra', $model->ra, parent::PARAM_INT);
-        $stmt->bindParam(':curso', $model->curso, parent::PARAM_STR);
+        $stmt->bindValue(':nome', $model->nome, parent::PARAM_STR);
+        $stmt->bindValue(':ra', $model->ra, parent::PARAM_INT);
+        $stmt->bindValue(':curso', $model->curso, parent::PARAM_STR);
         $stmt->execute();
 
         $model->id = parent::$conexao->lastInsertId();
@@ -36,10 +36,10 @@ class AlunoDAO extends DAO
         $sql = "UPDATE aluno SET nome = :nome, ra = :ra, curso = :curso WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':nome', $model->nome, parent::PARAM_STR);
-        $stmt->bindParam(':ra', $model->ra, parent::PARAM_INT);
-        $stmt->bindParam(':curso', $model->curso, parent::PARAM_STR);
-        $stmt->bindParam(':id', $model->id, parent::PARAM_INT);
+        $stmt->bindValue(':nome', $model->nome, parent::PARAM_STR);
+        $stmt->bindValue(':ra', $model->ra, parent::PARAM_INT);
+        $stmt->bindValue(':curso', $model->curso, parent::PARAM_STR);
+        $stmt->bindValue(':id', $model->id, parent::PARAM_INT);
         $stmt->execute();
 
         return $model;
@@ -50,7 +50,7 @@ class AlunoDAO extends DAO
         $sql = "SELECT * FROM aluno WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchObject("App\Model\Aluno");
@@ -71,7 +71,7 @@ class AlunoDAO extends DAO
         $sql = "DELETE FROM aluno WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':id', $id, parent::PARAM_INT);
+        $stmt->bindValue(':id', $id, parent::PARAM_INT);
         
         return $stmt->execute();
     }

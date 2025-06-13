@@ -11,8 +11,8 @@ class LoginDAO extends DAO
         $sql = "SELECT * FROM usuario WHERE email = :email AND senha = SHA1(:senha)";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindParam(':email', $model->email, parent::PARAM_STR);
-        $stmt->bindParam(':senha', $model->senha, parent::PARAM_STR);
+        $stmt->bindValue(':email', $model->email, parent::PARAM_STR);
+        $stmt->bindValue(':senha', $model->senha, parent::PARAM_STR);
         $stmt->execute();
 
         $model = $stmt->fetchObject('App\Model\Login');
