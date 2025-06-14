@@ -16,6 +16,8 @@
 
         <a href="/autor/cadastro">Novo Autor</a>
 
+        <?= $model->getErrors(); ?>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -26,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($autores as $autor): ?>
+                <?php foreach ($model->rows as $autor): ?>
                 <tr>
                     <th scope="row"> <?= $autor->id ?> </th>
                     <td> <a href="/autor/cadastro?id=<?= $autor->id ?>"><?= $autor->nome ?></a> </td>

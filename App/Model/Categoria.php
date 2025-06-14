@@ -3,10 +3,23 @@
 namespace App\Model;
 
 use App\DAO\CategoriaDAO;
+use Exception;
 
-class Categoria
+class Categoria extends Model
 {
-    public $id, $descricao;
+    public ?int $id = null;
+    public ?string $descricao
+    {
+        set
+        {
+            if (strlen($value) < 3)
+                throw new Exception('A descrição não deve ter menos que 3 caracteres');
+
+            $this->descricao = $value ?? null;
+        }
+
+        get => $this->descricao ?? null;
+    }
 
     public function save() : Categoria
     {
@@ -20,7 +33,9 @@ class Categoria
 
     public function getAll() : array
     {
-        return new CategoriaDAO()->select();
+        $this->rows = new CategoriaDAO()->select();
+
+        return $this->rows;
     }
 
     public function delete(int $id) : bool

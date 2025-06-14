@@ -3,42 +3,61 @@
 namespace App\Controller;
 
 use App\Model\Autor;
+use Exception;
 
-class AutorController
+class AutorController extends Controller
 {
+    public static function index() : void
+    {
+        $model = new Autor();
+
+        try {
+            $model->getAll();
+        } catch (Exception $e) {
+            $model->setError('Erro ao buscar os autores');
+            $model->setError($e->getMessage());
+        }
+
+        parent::render('/Autor/lista_autor.php', $model);
+    }
+
     public static function cadastro() : void
     {
         $model = new Autor();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $model->id = $_POST['id'] ?? null;
-            $model->nome = $_POST['nome'];
-            $model->data_nascimento = $_POST['data_nascimento'];
-            $model->cpf = $_POST['cpf'];
-            $model->save();
-            
-            header('Location: /autor');
-            exit;
+        try {
+            if (parent::isPost()) {
+                $model->id = (int) $_POST['id'] ?? null;
+                $model->nome = $_POST['nome'];
+                $model->data_nascimento = $_POST['data_nascimento'];
+                $model->cpf = $_POST['cpf'];
+                $model->save();
+                
+                parent::redirect('/autor');
+            }
+
+            if (isset($_GET['id'])) {
+                $model = $model->getById((int) $_GET['id']);
+            }
+        } catch (Exception $e) {
+            $model->setError($e->getMessage());
         }
 
-        if (isset($_GET['id'])) {
-            $autor = $model->getById((int) $_GET['id']);
-        }
-
-        include VIEWS . "/Autor/form_autor.php";
-    }
-
-    public static function listar() : void
-    {
-        $autores = new Autor()->getAll();
-
-        include VIEWS . "/Autor/lista_autor.php";
+        parent::render('/Autor/form_autor.php', $model);
     }
 
     public static function delete() : void
     {
-        new Autor()->delete((int) $_GET['id']);
+        $model = new Autor();
 
-        header('Location: /autor');
+        try {
+            $model->delete((int) $_GET['id']);
+            parent::redirect('/autor');
+        } catch (Exception $e) {
+            $model->setError('Ocorreu um erro ao excluir o autor');
+            $model->setError($e->getMessage());
+        }
+
+        parent::render('/Autor/lista_autor.php', $model);
     }
 }

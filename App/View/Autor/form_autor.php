@@ -13,22 +13,24 @@
         <?php include VIEWS . "/Includes/menu.php"; ?>
         <h1>Cadastro de Autor</h1>
 
+        <?= $model->getErrors(); ?>
+
         <form method="post" action="/autor/cadastro" class="p-5">
-            <input type="hidden" name="id" value="<?= $autor->id ?? null ?>">
+            <input type="hidden" name="id" value="<?= $model->id ?? null ?>">
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
-                <input type="text" class="form-control" name="nome" id="nome" value="<?= $autor->nome ?? null ?>">
+                <input type="text" class="form-control" name="nome" id="nome" value="<?= $model->nome ?? null ?>">
             </div>
 
             <div class="mb-3">
                 <label for="data_nascimento">Data de Nascimento:</label>
-                <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="<?= $autor->data_nascimento ?? null ?>">
+                <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="<?= $model->data_nascimento ?? null ?>">
             </div>
 
             <div class="mb-3">
                 <label for="cpf">CPF:</label>
-                <input type="text" name="cpf" id="cpf" class="form-control" maxlength="11" value="<?= $autor->cpf ?? null ?>">
+                <input type="text" name="cpf" id="cpf" class="form-control" maxlength="11" value="<?= $model->cpf ?? null ?>">
             </div>
             
             <button type="submit" class="btn btn-success">Salvar</button>

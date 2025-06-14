@@ -36,7 +36,7 @@ switch ($url) {
         break;
     case '/categoria':
         AuthController::isAuthenticated();
-        CategoriaController::listar();
+        CategoriaController::index();
         break;
     case '/categoria/cadastro':
         AuthController::isAuthenticated();
@@ -48,7 +48,7 @@ switch ($url) {
         break;
     case '/autor':
         AuthController::isAuthenticated();
-        AutorController::listar();
+        AutorController::index();
         break;
     case '/autor/cadastro':
         AuthController::isAuthenticated();

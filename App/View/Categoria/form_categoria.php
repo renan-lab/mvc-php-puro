@@ -13,12 +13,14 @@
         <?php include VIEWS . "/Includes/menu.php"; ?>
         <h1>Cadastro de Categoria</h1>
 
+        <?= $model->getErrors() ?>
+
         <form method="post" action="/categoria/cadastro" class="p-5">
-            <input type="hidden" name="id" value="<?= $categoria->id ?? null ?>">
+            <input type="hidden" name="id" value="<?= $model->id ?? null ?>">
 
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição:</label>
-                <input type="text" class="form-control" name="descricao" id="descricao" value="<?= $categoria->descricao ?? null ?>">
+                <input type="text" class="form-control" name="descricao" id="descricao" value="<?= $model->descricao ?? null ?>">
             </div>
             
             <button type="submit" class="btn btn-success">Salvar</button>

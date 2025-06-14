@@ -16,6 +16,8 @@
 
         <a href="/categoria/cadastro">Nova Categoria</a>
 
+        <?= $model->getErrors(); ?>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -24,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categorias as $categoria): ?>
+                <?php foreach ($model->rows as $categoria): ?>
                 <tr>
                     <th scope="row"> <?= $categoria->id ?> </th>
                     <td> <a href="/categoria/cadastro?id=<?= $categoria->id ?>"><?= $categoria->descricao ?></a> </td>
