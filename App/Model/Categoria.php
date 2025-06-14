@@ -15,7 +15,7 @@ class Categoria extends Model
             if (strlen($value) < 3)
                 throw new Exception('A descrição não deve ter menos que 3 caracteres');
 
-            $this->descricao = $value ?? null;
+            $this->descricao = $value;
         }
 
         get => $this->descricao ?? null;

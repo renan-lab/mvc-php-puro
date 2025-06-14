@@ -27,11 +27,11 @@
             </thead>
             <tbody>
                 <?php foreach ($model->rows as $categoria): ?>
-                <tr>
-                    <th scope="row"> <?= $categoria->id ?> </th>
-                    <td> <a href="/categoria/cadastro?id=<?= $categoria->id ?>"><?= $categoria->descricao ?></a> </td>
-                    <td> <a href="/categoria/delete?id=<?= $categoria->id ?>">Remover</a> </td>
-                </tr>
+                    <tr>
+                        <th scope="row"> <?= $categoria->id ?> </th>
+                        <td> <a href="/categoria/cadastro?id=<?= $categoria->id ?>"><?= $categoria->descricao ?></a> </td>
+                        <td> <a href="/categoria/delete?id=<?= $categoria->id ?>">Remover</a> </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
