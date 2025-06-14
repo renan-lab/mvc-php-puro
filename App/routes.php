@@ -6,6 +6,7 @@ use App\Controller\{
     AutorController,
     CategoriaController,
     InicialController,
+    LivroController,
     LoginController
 };
 
@@ -57,6 +58,18 @@ switch ($url) {
     case '/autor/delete':
         AuthController::isAuthenticated();
         AutorController::delete();
+        break;
+    case '/livro':
+        AuthController::isAuthenticated();
+        LivroController::index();
+        break;
+    case '/livro/cadastro':
+        AuthController::isAuthenticated();
+        LivroController::cadastro();
+        break;
+    case '/livro/delete':
+        AuthController::isAuthenticated();
+        LivroController::delete();
         break;
     default:
         # code...
