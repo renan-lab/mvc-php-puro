@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
-use App\Model\Livro;
+use App\Model\{
+    Livro,
+    Categoria,
+    Autor
+};
 use Exception;
 
 class LivroController extends Controller
@@ -30,9 +34,11 @@ class LivroController extends Controller
             if (parent::isPost()) {
                 $model->id = (int) $_POST['id'] ?? null;
                 $model->titulo = $_POST['titulo'];
+                $model->id_categoria = $_POST['id_categoria'];
                 $model->editora = $_POST['editora'];
                 $model->ano = $_POST['ano'];
                 $model->isbn = $_POST['isbn'];
+                $model->id_autores = $_POST['autor'];
 
                 $model->save();
 
@@ -45,6 +51,10 @@ class LivroController extends Controller
         } catch (Exception $e) {
             $model->setError($e->getMessage());
         }
+
+        $model->rows_categorias = new Categoria()->getAll();
+
+        $model->rows_autores = new Autor()->getAll();
 
         parent::render('/Livro/form_livro.php', $model);
     }

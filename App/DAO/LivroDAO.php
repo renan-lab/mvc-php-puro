@@ -18,6 +18,8 @@ class LivroDAO extends DAO
 
     public function insert(Livro $model) : Livro
     {
+        parent::$conexao->beginTransaction();
+
         $sql = "INSERT INTO livro (id_categoria, titulo, editora, ano, isbn) VALUES (:id_categoria, :titulo, :editora, :ano, :isbn)";
 
         $stmt = parent::$conexao->prepare($sql);
@@ -30,11 +32,24 @@ class LivroDAO extends DAO
 
         $model->id = parent::$conexao->lastInsertId();
 
+        foreach ($model->id_autores as $id_autor) {
+            $sql = "INSERT INTO livro_autor_assoc (id_livro, id_autor) VALUES (:id_livro, :id_autor)";
+
+            $stmt = parent::$conexao->prepare($sql);
+            $stmt->bindValue(':id_livro', $model->id, parent::PARAM_INT);
+            $stmt->bindValue(':id_autor', $id_autor, parent::PARAM_INT);
+            $stmt->execute();
+        }
+
+        parent::$conexao->commit();
+
         return $model;
     }
 
     public function update(Livro $model) : Livro
     {
+        parent::$conexao->beginTransaction();
+
         $sql = "UPDATE livro SET id_categoria = :id_categoria, titulo = :titulo, editora = :editora, ano = :ano, isbn = :isbn WHERE id = :id";
 
         $stmt = parent::$conexao->prepare($sql);
@@ -45,6 +60,23 @@ class LivroDAO extends DAO
         $stmt->bindValue(':isbn', $model->isbn, parent::PARAM_STR);
         $stmt->bindValue(':id', $model->id, parent::PARAM_INT);
         $stmt->execute();
+
+        $sql = "DELETE FROM livro_autor_assoc WHERE id_livro = :id_livro";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->bindValue(':id_livro', $model->id, parent::PARAM_INT);
+        $stmt->execute();
+
+        foreach ($model->id_autores as $id_autor) {
+            $sql = "INSERT INTO livro_autor_assoc (id_livro, id_autor) VALUES (:id_livro, :id_autor)";
+
+            $stmt = parent::$conexao->prepare($sql);
+            $stmt->bindValue(':id_livro', $model->id, parent::PARAM_INT);
+            $stmt->bindValue(':id_autor', $id_autor, parent::PARAM_INT);
+            $stmt->execute();
+        }
+
+        parent::$conexao->commit();
 
         return $model;
     }
@@ -57,7 +89,17 @@ class LivroDAO extends DAO
         $stmt->bindValue(':id', $id, parent::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchObject('App\Model\Livro');
+        $model = $stmt->fetchObject('App\Model\Livro');
+
+        $sql = "SELECT id_autor FROM livro_autor_assoc WHERE id_livro = :id_livro";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->bindValue(':id_livro', $id, parent::PARAM_INT);
+        $stmt->execute();
+        
+        $model->id_autores = $stmt->fetchAll(parent::FETCH_COLUMN);
+
+        return $model;
     }
 
     public function select() : array

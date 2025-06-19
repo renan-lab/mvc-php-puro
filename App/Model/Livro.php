@@ -8,8 +8,10 @@ use Exception;
 class Livro extends Model
 {
     public ?int $id = null;
-    public array $rows_categoria;
+    public array $rows_categorias = [];
+    public array $rows_autores = [];
     public $id_categoria;
+    public $id_autores;
     public ?string $titulo
     {
         set

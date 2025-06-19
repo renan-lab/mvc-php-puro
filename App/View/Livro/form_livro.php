@@ -39,10 +39,32 @@
             </div>
 
             <div class="mb-3">
-                <label for="categoria">Categoria:</label>
-                <select name="categoria" id="categoria" class="form-select">
+                <label for="id_categoria">Categoria:</label>
+                <select name="id_categoria" id="id_categoria" class="form-select">
                     <option value="">Selecione</option>
+                    <?php foreach ($model->rows_categorias as $categoria): ?>
+                        <option value="<?= $categoria->id ?>" <?= $categoria->id === $model->id_categoria ? 'selected' : '' ?>>
+                            <?= $categoria->descricao ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <p>Autores:</p>
+                <?php foreach ($model->rows_autores as $autor): ?>
+                    <div class="form-check form-check-inline">
+                        <input 
+                            class="form-check-input"
+                            type="checkbox"
+                            value="<?= $autor->id ?>"
+                            name="autor[]"
+                            id="<?= $autor->id ?>"
+                            <?= in_array($autor->id, $model->id_autores) ? 'checked' : '' ?>
+                        >
+                        <label for="<?= $autor->id ?>" class="form-check-label"><?= $autor->nome ?></label>
+                    </div>
+                <?php endforeach; ?>
             </div>
 
             <button type="submit" class="btn btn-success">Salvar</button>
