@@ -60,7 +60,7 @@
                             value="<?= $autor->id ?>"
                             name="autor[]"
                             id="<?= $autor->id ?>"
-                            <?= in_array($autor->id, $model->id_autores) ? 'checked' : '' ?>
+                            <?= (!empty($model->id_autores) && in_array($autor->id, $model->id_autores)) ? 'checked' : '' ?>
                         >
                         <label for="<?= $autor->id ?>" class="form-check-label"><?= $autor->nome ?></label>
                     </div>
