@@ -5,6 +5,7 @@ use App\Controller\{
     AuthController,
     AutorController,
     CategoriaController,
+    EmprestimoController,
     InicialController,
     LivroController,
     LoginController
@@ -71,6 +72,17 @@ switch ($url) {
         AuthController::isAuthenticated();
         LivroController::delete();
         break;
+    case '/emprestimo':
+        AuthController::isAuthenticated();
+        EmprestimoController::index();
+        break;
+    case '/emprestimo/cadastro':
+        AuthController::isAuthenticated();
+        EmprestimoController::cadastro();
+        break;
+    case '/emprestimo/delete':
+        AuthController::isAuthenticated();
+        EmprestimoController::delete();
     default:
         # code...
         break;

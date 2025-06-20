@@ -4,9 +4,9 @@ namespace App\Model;
 
 use App\DAO\LoginDAO;
 
-class Login
+class Login extends Model
 {
-    public $email, $senha;
+    public $id, $email, $senha, $nome;
 
     public function logar() : ?Login
     {

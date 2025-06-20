@@ -4,15 +4,13 @@ namespace App\Controller;
 
 use App\Model\Login;
 
-class LoginController
+class LoginController extends Controller
 {
     public static function index() : void
     {
-        $erro = '';
-
         $model = new Login();
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (parent::isPost()) {
             $model->email = $_POST['email'];
             $model->senha = $_POST['senha'];
             
@@ -29,24 +27,27 @@ class LoginController
                     );
                 }
 
-                header('Location: /');
-                exit;
+                parent::redirect('/');
             }
             
-            $erro = 'Email ou senha incorretos';
+            $model->setError('Email ou senha incorretos');
         }
 
         if (isset($_COOKIE['sistema_biblioteca_usuario'])) {
             $model->email = $_COOKIE['sistema_biblioteca_usuario'];
         }
         
-        include VIEWS . '/Login/form_login.php';
+        parent::render('/Login/form_login.php', $model);
     }
 
     public static function logout() : void 
     {
         session_destroy();
-        header('Location: /login');
-        exit;
+        parent::redirect('/login');
+    }
+
+    public static function getUsuario() : Login
+    {
+        return unserialize(serialize($_SESSION['usuario_logado']));
     }
 }
